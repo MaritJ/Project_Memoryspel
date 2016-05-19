@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="Memoryspel geschiedenis">
+    <meta name="keywords" content="memory, geschiedenis, spel">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <style>
+        
+        h1 {
+            color: beige;
+            background: #333; 
+            display: block;
+            margin: 0;
+            padding: 0;
+        
+        
+        }
+        
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333;
+           }
+
+        li {
+            float: left;
+        }   
+
+        li a {
+            display: block;
+            color: beige;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+
+        li a:hover {
+            background-color: #111;
+        }
+         .container {
+            float: left;
+            width: 200px;
+            height: 200px;
+            position: relative;
+            border: 1px solid #ccc;
+            -webkit-perspective: 800px;
+            -moz-perspective: 800px;
+            -o-perspective: 800px;
+            perspective: 800px;
+        }
+        .card {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            -webkit-transition: -webkit-transform 1s;
+            -moz-transition: -moz-transform 1s;
+            -o-transition: -o-transform 1s;
+            transition: transform 1s;
+            -webkit-transform-style: preserve-3d;
+            -moz-transform-style: preserve-3d;
+            -o-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+            -webkit-transform-origin: 50% 50%;
+        }
+        .card div {
+            display: block;
+            height: 100%;
+            width: 100%;
+            line-height: 260px;
+            color: white;
+            text-align: center;
+            font-weight: bold;
+            font-size: 140px;
+            position: absolute;
+            -webkit-backface-visibility: hidden;
+            -moz-backface-visibility: hidden;
+            -o-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+        .card .front {
+          background-image:url(pics/achtergrond.JPG);
+            background-size:     cover;                      /* <------ */
+            background-repeat:   no-repeat;
+        }
+        .card .back {
+            background: blue;
+            -webkit-transform: rotateY( 180deg );
+            -moz-transform: rotateY( 180deg );
+            -o-transform: rotateY( 180deg );
+            transform: rotateY( 180deg );
+        }
+        .card.flipped {
+            -webkit-transform: rotateY( 180deg );
+            -moz-transform: rotateY( 180deg );
+            -o-transform: rotateY( 180deg );
+            transform: rotateY( 180deg );
+        }
+    
+        .fieldlabel {
+        color: beige;
+        background: #333;
+        
+        }
+        
+        
+        .weg{
+           display: none;
+       }
+        
+        
+       
+    </style>
+    <title>Memoryspel Marit Jaspers</title>
+</head>
+    
+    <!--/* START SCHERM --------------------------------*/--!-->
+
+
+<body>
+   <!--/*Lijst met spelers en scores -------------------------------*/ !-->   
+    
+    <h1> Memoryspel geschiedenis </h1>
+    <ul id="scores">
+        <li>
+            <div class="fieldlabel">Speler 1</div>
+            <div class="field_value">
+                <div id="score1">0</div>
+            </div>
+            <div class="fieldlabel">Speler 2</div>
+            <div class="field_value">
+                <div id="score2">0</div>
+            </div>
+        </li>
+    </ul>
+
+    <!--/*Nav met tijden -------------------------------*/ !-->    
+    <ul id="jmenu">
+        <li><a id="Pre" class="fNiv"> Prehistorie </a></li>
+        <li><a id="Sto" class="fNiv"> Stroomcultuur </a></li>
+        <li><a id="Kla" class="fNiv"> Klassieke Oudheid </a></li>
+        <li><a id="Mid" class="fNiv"> Middeleeuwen </a></li>
+        <li><a id="Nwt" class="fNiv"> Nieuwe tijd </a></li>
+        <li><a id="Nst" class="fNiv"> Nieuwste tijd </a></li>
+        <li><a id="Eig" class="fNiv"> Eigen tijd </a></li>
+        <li><a id="start" class="fNiv"> Start </a></li>
+    </ul>
+    
+
+<script src="jquery-1.12.1.min.js"></script>
+<script>
+    "use strict";
+    /*global $ */
+        
+    /*kaart omdraaien hier nog inkomen van controle zelfde kaart, na zoveel sec kaart omdraaien*/
+    var kaart1 = null, kaart2 = null, id1, id2;
+    function nulzetten() {
+     kaart1 = null;
+     kaart2 = null;
+     id1 = ""; 
+         id2 = "";
+    }
+    
+    function kaartenverbergen(id1, id2)
+    {
+            setTimeout(function(){
+            $('#'+id1).toggleClass('flipped');
+            $('#'+id2).toggleClass('flipped');
+            nulzetten();},2000);  
+    }
+    
+    
+    function kaartomdraaien(id,image) {
+    if (kaart2 !== null)
+    {
+    }
+        else
+        {
+        $('#'+id).toggleClass('flipped');
+        if (kaart2 !== null)
+        {
+            kaartenverbergen(id1, id2); 
+            nulzetten();
+        }
+        if( image.substr(0,1) === "a")
+         {(image = image.substr(4,11)
+          )}
+        else
+                 {(image = image.substr(5,11)
+          )}
+        if (kaart1 === null)
+        { 
+            
+            kaart1 = image;
+            id1 = id;
+        }
+        else 
+        {
+            kaart2 = image;
+            id2 = id;
+        }
+        console.log(kaart1, kaart2)
+        
+        if (kaart2 !== null)
+        {
+        if (kaart1 === kaart2)
+        { 
+        $("#"+id1).fadeOut(2000);
+        $("#"+id2).fadeOut(2000);
+        nulzetten();
+        }
+        
+        else 
+        {
+        kaartenverbergen(id1, id2);
+        }
+        }
+        }
+        
+    }
+    
+
+   /*    Alle kaarten in spel steken ---------------------------- */
+
+    var array = { false, false, false, false, false, false, false};
+            
+          var gebruiktekaarten = ['afb/et1.JPG','afb/et2.JPG','afb/et3.JPG','afb/et4.JPG','afb/et5.JPG','afb/ko1.JPG','afb/ko2.JPG','afb/ko3.JPG','afb/ko4.JPG','afb/ko5.JPG','afb/mid1.JPG','afb/mid2.JPG','afb/mid3.JPG','afb/mid4.JPG','afb/mid5.JPG','afb/nst1.JPG','afb/nst2.JPG','afb/nst3.JPG','afb/nst4.JPG','afb/nst5.JPG','afb/nt1.JPG','afb/nt2.JPG','afb/nt3.JPG','afb/nt4.JPG','afb/nt5.JPG','afb/pre1.JPG','afb/pre2.JPG','afb/pre3.JPG','afb/pre4.JPG','afb/pre5.JPG','afb/str1.JPG','afb/str2.JPG','afb/str3.JPG','afb/str4.JPG','afb/str5.JPG','tijd/et1.JPG','tijd/et2.JPG','tijd/et3.JPG','tijd/et4.JPG','tijd/et5.JPG','tijd/ko1.JPG','tijd/ko2.JPG','tijd/ko3.JPG','tijd/ko4.JPG','tijd/ko5.JPG','tijd/mid1.JPG','tijd/mid2.JPG','tijd/mid3.JPG','tijd/mid4.JPG','tijd/mid5.JPG','tijd/nst1.JPG','tijd/nst2.JPG','tijd/nst3.JPG','tijd/nst4.JPG','tijd/nst5.JPG','tijd/nt1.JPG','tijd/nt2.JPG','tijd/nt3.JPG','tijd/nt4.JPG','tijd/nt5.JPG','tijd/pre1.JPG','tijd/pre2.JPG','tijd/pre3.JPG','tijd/pre4.JPG','tijd/pre5.JPG','tijd/str1.JPG','tijd/str2.JPG','tijd/str3.JPG','tijd/str4.JPG','tijd/str5.JPG']
+           
+            /* var periodes = [pre, str, ko, mid, nt, nst, et] */
+            var pre = ['afb/pre1.JPG','afb/pre2.JPG','afb/pre3.JPG','afb/pre4.JPG','afb/pre5.JPG','tijd/pre1.JPG','tijd/pre2.JPG','tijd/pre3.JPG','tijd/pre4.JPG','tijd/pre5.JPG']
+             var str = ['afb/str1.JPG','afb/str2.JPG','afb/str3.JPG','afb/str4.JPG','afb/str5.JPG','tijd/str1.JPG','tijd/str2.JPG','tijd/str3.JPG','tijd/str4.JPG','tijd/str5.JPG']
+             var ko = ['tijd/ko1.JPG','tijd/ko2.JPG','tijd/ko3.JPG','tijd/ko4.JPG','tijd/ko5.JPG', 'afb/ko1.JPG','afb/ko2.JPG','afb/ko3.JPG','afb/ko4.JPG','afb/ko5.JPG']
+             
+             var mid = ['afb/mid1.JPG','afb/mid2.JPG','afb/mid3.JPG','afb/mid4.JPG','afb/mid5.JPG', 'tijd/mid1.JPG','tijd/mid2.JPG','tijd/mid3.JPG','tijd/mid4.JPG','tijd/mid5.JPG']
+             
+             var nt = ['afb/nt1.JPG','afb/nt2.JPG','afb/nt3.JPG','afb/nt4.JPG','afb/nt5.JPG','tijd/nt1.JPG','tijd/nt2.JPG','tijd/nt3.JPG','tijd/nt4.JPG','tijd/nt5.JPG']
+             
+             var nst = ['afb/nst1.JPG','afb/nst2.JPG','afb/nst3.JPG','afb/nst4.JPG','afb/nst5.JPG','tijd/nst1.JPG','tijd/nst2.JPG','tijd/nst3.JPG','tijd/nst4.JPG','tijd/nst5.JPG']
+             
+             var et = ['afb/et1.JPG','afb/et2.JPG','afb/et3.JPG','afb/et4.JPG','afb/et5.JPG', 'tijd/et1.JPG','tijd/et2.JPG','tijd/et3.JPG','tijd/et4.JPG','tijd/et5.JPG']
+
+           
+          function kaartenaanmaken(periode, plaats){ 
+            
+            var arr = []
+            /*if /* var NOT in array */ 
+            console.log(periode)
+            
+            while (arr.length < 10) {
+                var randomnumber = Math.ceil((Math.random() * 10) - 1)
+                var found = false;
+                for (var i = 0; i < arr.length; i++) {
+                    if (arr[i] === randomnumber) {
+                        found = true;
+                        break
+                    }
+                }
+                if (!found) arr[arr.length] = randomnumber;
+            }
+            var i = plaats;
+              var j = 0;
+        
+        
+                
+/* kaarten aanmaken (voor en achterkant) ------------------------------------------ */
+ 
+            while (i < (plaats+10)) {    
+               
+                $('<div/>', {
+                        'id':i,
+                        'class': 'container',
+                    }).appendTo('body');
+                $('<div/>', {
+                        'id':i + 'b',
+                        'class': 'card',
+                    'onclick': 'kaartomdraaien(this.id,"'+ periode[arr[j]]+'")',
+                    }).appendTo('#' + i);
+                
+                $('<div/>', {
+                        'class': 'front',
+                    }).appendTo('#' + i + 'b');
+               $('<div/>', {
+                        'id':i + 'c',
+                        'class': 'back',
+                    }).appendTo('#' + i + 'b');
+                $('#' + i + 'c').prepend('<img width="200"src="pics/' + periode[arr[j]] + '" />');
+                
+                
+                i++;
+                j++;
+            }
+              periode = "";
+          }
+          
+            
+        
+      /*  else
+                    /* var uit array halen*/    
+            /* gebruikte afb legen ?*/
+
+$("#Pre").on("click", function() {
+    if (array[0]) {
+        array[0] = false;
+    }
+    else {
+        array[0] = true;
+        
+    }
+}
+             
+$("#Start").on("click", function() {
+    if(array[0]){
+        kaartenaanmaken(pre, 10);
+    }
+    if(array[1]){
+        kaartenaanmaken(str, 10);
+    }
+    
+     if(array[1]){
+        kaartenaanmaken(ko, 10);
+    }
+    
+    if(array[1]){
+        kaartenaanmaken(mid, 10);
+    }
+    
+    if(array[1]){
+        kaartenaanmaken(nt, 10);
+    }
+    
+    if(array[1]){
+        kaartenaanmaken(nst, 10);
+    }
+    
+    if(array[1]){
+        kaartenaanmaken(et, 10);
+    }
+    
+    
+/*$(document).ready(function(){
+var aanpre = false
+
+$("#Pre").on('click', function(){
+        if (aanpre === false) {
+            aanpre = true;
+            kaartenaanmaken(pre, 0); }
+    
+        else {
+            aanpre = false
+            $(".container").remove(pre);
+            /*pre = jQuery.grep(pre, function(value) {
+  return value != pre;
+           /* addClass('weg')*/
+            /*$("gebruiktekaarten").remove();
+            /*$("pre").remove();
+            /*$("#b").remove();
+            $("#c").remove();*/
+            /* ("#div").hide(); /*plaats 1-10-*/
+       /* });*/
+            
+/*        }
+    });
+
+    
+$("#Sto").on('click', function(){
+     if (aanpre === false) {
+            aanpre = true;
+            kaartenaanmaken(str, 10); }
+    
+        else {
+            aanpre = false
+            $(".container").remove(str);
+        }
+ 
+});
+
+$("#Kla").on('click', function(){
+             kaartenaanmaken(ko, 20);
+});
+    
+$("#Mid").on('click', function(){
+             kaartenaanmaken(mid, 30);
+});
+    
+$("#Nwt").on('click', function(){
+             kaartenaanmaken(nt, 40);
+});
+    
+$("#Nst").on('click', function(){
+             kaartenaanmaken(nst, 50);
+});
+
+$("#Eig").on('click', function(){
+             kaartenaanmaken(et, 60);
+});
+});*/
+
+
+
+</script>
+
+</body>
+</html>
