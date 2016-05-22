@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="Memoryspel geschiedenis">
+    <meta name="keywords" content="Memoryspel, geschiedenis, prehistorie, stroomcultuur, oudheid">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta name="author" content="Marit Jaspers">
+    <link rel="stylesheet" href="css/sweetalert.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <title>Memoryspel Marit Jaspers</title>
+</head>
+
+<!--/* START SCHERM --------------------------------*/--!-->
+
+
+<body>
+    <!--/*Start + Uitleg + Nieuws spel -------------------------------*/ !-->
+    <header>
+        <h1> Memoryspel geschiedenis </h1>
+        <ul class="info">
+            <li>
+                <a id="Start" class="fNiv">
+                    <h2> Start </h2></a>
+            </li>
+            <li>
+                <a id="Uitleg" class="fNiv">
+                    <h2> Uitleg </h2></a>
+            </li>
+            <li>
+                <a id="nieuw" class="fNiv">
+                    <h2> Nieuw spel </h2></a>
+
+        </ul>
+<!--/*Lijst met spelers en scores -------------------------------*/ !-->
+        <div class="spelers">
+            <div class="punten1" id="sp1">Speler 1</div>
+            <div id="score1" class="punten1">0</div>
+            <div class="punten2" id="sp2">Speler 2</div>
+            <div id="score2" class="punten2">0</div>
+        </div>
+
+    <!--/*Periodes -------------------------------*/ !-->
+     
+        <a href="#!" class="period" id="period">Periodes</a>
+        <ul id="jmenu" class="perio">
+            <li><a id="Pre" class="fNiv"> Prehistorie </a></li>
+            <li><a id="Sto" class="fNiv"> Stroomcultuur </a></li>
+            <li><a id="Kla" class="fNiv"> Klassieke Oudheid </a></li>
+            <li><a id="Mid" class="fNiv"> Middeleeuwen </a></li>
+            <li><a id="Nwt" class="fNiv"> Nieuwe tijd </a></li>
+            <li><a id="Nst" class="fNiv"> Nieuwste tijd </a></li>
+            <li><a id="Eig" class="fNiv"> Eigen tijd </a></li>
+        </ul>
+
+    </header>
+    
+    <div id="k"></div>
+    
+    <script src="scripts/jquery-1.12.1.min.js"></script>
+     <script src="scripts/sweetalert.min.js"></script>
+    <script>
+/*------Eerst speler 1 aan de beurt ----------------------------*/
+        $(".punten1").css("background-color", "#AE983A");
+/*------Popup met uitleg ---------------------------------------*/
+        $("#Uitleg").on('click', function() {
+            swal({
+                title: "Uitleg",
+                text: "De bedoeling is om dit spel met twee te spelen. Je moet proberen zo hoog mogelijk te scoren. Je kan een punt verdienen door twee dezelfde kaartjes te vinden. Als je twee dezelfde kaartjes vind is het aan jou. Anders gaat de beurt naar de andere speler. Je kan kiezen uit de zeven periodes. Je kan één of meerdere periodes selecteren om te oefenen.",
+                type: "info",
+                confirmButtonText: "Ok"
+            });
+        });
+
+        "use strict";
+        /*global $ */
+
+/*-----Kaarten omdraaien --------------------------------------*/
+        var kaart1 = null,
+            kaart2 = null,
+            beurt = -1,
+            kleur = true,
+            id1,
+            id2,
+            kaartonthouden,
+            kaartonthouden1; //nieuwe variabele om te ontouden welke kaart als eerste werd geklikt.
+        
+
+        function nulzetten() { 
+            kaart1 = null;
+            kaart2 = null;
+            id1 = "";
+            id2 = "";
+        }
+
+        function kaartenverbergen(id1, id2) {
+            setTimeout(function() {
+                $('#' + id1).toggleClass('flipped');
+                $('#' + id2).toggleClass('flipped');
+                nulzetten();
+            }, 2000);
+        }
+
+
+        function kaartomdraaien(id, image) {
+            if (kaartonthouden1 === image) {} 
+            else { 
+                kaartonthouden = image; 
+                if (beurt < 3) {
+                    beurt++;
+                } else {
+                    beurt = 0;
+                }
+
+
+                if (kaart2 !== null) {} else {
+                    $('#' + id).toggleClass('flipped');
+                    if (kaart2 !== null) {
+                        kaartenverbergen(id1, id2);
+                        nulzetten();
+                    }
+                    if (image.substr(0, 1) === "a") {
+                        (image = image.substr(4, 11))
+                    } else {
+                        (image = image.substr(5, 11))
+                    }
+                    if (kaart1 === null) {
+                        kaartonthouden1 = kaartonthouden;
+                        kaart1 = image;
+                        id1 = id;
+
+                    } else {
+                        kaart2 = image;
+                        id2 = id;
+
+                        kaartonthouden1 = "";
+                        eerstekaart = ""; 
+                    }
+
+
+                    if (kaart2 !== null) {
+                        if (kaart1 === kaart2) {
+                            if (kleur === true) {
+                                var score = 1 + parseInt($("#score1").text());
+                                $("#score1").text(score);
+
+                            } else {
+                                var score = 1 + parseInt($("#score2").text());
+                                $("#score2").text(score);
+
+                            }
+                            $("#" + id1).fadeOut(2000);
+                            $("#" + id2).fadeOut(2000);
+                            nulzetten();
+                        } else {
+                            kaartenverbergen(id1, id2);
+                            if (kleur === true) {
+                                kleur = false;
+                            } else {
+                                kleur = true;
+                            }
+
+
+                        }
+                    }
+                    setTimeout(function() {
+                        if (kleur === false) {
+                            $(".punten2").css("background-color", "#AE983A");
+                            $(".punten1").css("background-color", "transparent");
+                        } else {
+                            $(".punten2").css("background-color", "transparent");
+                            $(".punten1").css("background-color", "#AE983A");
+                        }
+
+
+                    }, 1500);
+
+
+                }
+            }
+
+        }
+
+
+/*------Alle kaarten in spel steken ---------------------------- */
+
+
+        $(document).ready(function() {
+            $("#period").on("click", function() {
+                $("#jmenu").slideToggle();
+            });
+
+            var pre = ['afb/pre1.JPG', 'afb/pre2.JPG', 'afb/pre3.JPG', 'afb/pre4.JPG', 'afb/pre5.JPG', 'tijd/pre1.JPG', 'tijd/pre2.JPG', 'tijd/pre3.JPG', 'tijd/pre4.JPG', 'tijd/pre5.JPG']
+
+            var str = ['afb/str1.JPG', 'afb/str2.JPG', 'afb/str3.JPG', 'afb/str4.JPG', 'afb/str5.JPG', 'tijd/str1.JPG', 'tijd/str2.JPG', 'tijd/str3.JPG', 'tijd/str4.JPG', 'tijd/str5.JPG']
+
+            var ko = ['tijd/ko1.JPG', 'tijd/ko2.JPG', 'tijd/ko3.JPG', 'tijd/ko4.JPG', 'tijd/ko5.JPG', 'afb/ko1.JPG', 'afb/ko2.JPG', 'afb/ko3.JPG', 'afb/ko4.JPG', 'afb/ko5.JPG']
+
+            var mid = ['afb/mid1.JPG', 'afb/mid2.JPG', 'afb/mid3.JPG', 'afb/mid4.JPG', 'afb/mid5.JPG', 'tijd/mid1.JPG', 'tijd/mid2.JPG', 'tijd/mid3.JPG', 'tijd/mid4.JPG', 'tijd/mid5.JPG']
+
+            var nt = ['afb/nt1.JPG', 'afb/nt2.JPG', 'afb/nt3.JPG', 'afb/nt4.JPG', 'afb/nt5.JPG', 'tijd/nt1.JPG', 'tijd/nt2.JPG', 'tijd/nt3.JPG', 'tijd/nt4.JPG', 'tijd/nt5.JPG']
+
+            var nst = ['afb/nst1.JPG', 'afb/nst2.JPG', 'afb/nst3.JPG', 'afb/nst4.JPG', 'afb/nst5.JPG', 'tijd/nst1.JPG', 'tijd/nst2.JPG', 'tijd/nst3.JPG', 'tijd/nst4.JPG', 'tijd/nst5.JPG']
+
+            var et = ['afb/et1.JPG', 'afb/et2.JPG', 'afb/et3.JPG', 'afb/et4.JPG', 'afb/et5.JPG', 'tijd/et1.JPG', 'tijd/et2.JPG', 'tijd/et3.JPG', 'tijd/et4.JPG', 'tijd/et5.JPG']
+
+            var array = [
+                /* prehistorie = */
+                false,
+                /* stroomculturen = */
+                false,
+                /* klassieke oudheid = */
+                false,
+                /* middeleeuwen = */
+                false,
+                /* nieuwe tijd= */
+                false,
+                /* nieuwste tijd = */
+                false,
+                /* eigen tijd= */
+                false
+            ]
+
+            function clicked(arraynumber, time) {
+                if (array[arraynumber]) {
+                    $("#" + time).css("background-color", "transparent");
+                    array[arraynumber] = false;
+                } else {
+                    $("#" + time).css("background-color", "#AE983A");
+                    array[arraynumber] = true;
+                }
+            }
+
+            function shuffle(arrayList) {
+                var j, x, i;
+                for (i = arrayList.length; i; i--) {
+                    j = Math.floor(Math.random() * i);
+                    x = arrayList[i - 1];
+                    arrayList[i - 1] = arrayList[j];
+                    arrayList[j] = x;
+                }
+            }
+
+            $("#Pre").on('click', function() {
+                clicked(0, "Pre");
+            });
+            $("#Sto").on('click', function() {
+                clicked(1, "Sto");
+            });
+            $("#Kla").on('click', function() {
+                clicked(2, "Kla");
+            });
+            $("#Mid").on('click', function() {
+                clicked(3, "Mid");
+            });
+            $("#Nwt").on('click', function() {
+                clicked(4, "Nwt");
+            });
+            $("#Nst").on('click', function() {
+                clicked(5, "Nst");
+            });
+            $("#Eig").on('click', function() {
+                clicked(6, "Eig");
+            });
+            $("#Start").on('click', function() {
+
+        /*-----periodes niet meer indrukken vanaf start* -------------------*/
+                $("#Pre").unbind("click"); 
+                $("#Sto").unbind("click");
+                $("#Kla").unbind("click");
+                $("#Mid").unbind("click");
+                $("#Nwt").unbind("click");
+                $("#Nst").unbind("click");
+                $("#Eig").unbind("click");
+                
+
+                $(".container").remove();
+                var example = [];
+                beurt = -1;
+                $("#score1").text("0");
+                $("#score2").text("0");
+                if (array[0]) {
+                    example = $.merge(example, pre)
+                }
+
+                if (array[1]) {
+                    example = $.merge(example, str)
+                }
+                if (array[2]) {
+                    example = $.merge(example, ko)
+                }
+                if (array[3]) {
+                    example = $.merge(example, mid)
+                }
+                if (array[4]) {
+                    example = $.merge(example, nt)
+                }
+                if (array[5]) {
+                    example = $.merge(example, nst)
+                }
+                if (array[6]) {
+                    example = $.merge(example, et)
+                }
+                shuffle(example);
+                console.log(example);
+                for (var i = 0; i < example.length; i++) {
+                    var periode = example[i];
+/*-----Kaarten aanmaken --------------------------------------*/
+                    $('<div/>', {
+                        'id': i,
+                        'class': 'container',
+                    }).appendTo('#k');
+                    $('<div/>', {
+                        'id': i + 'b',
+                        'class': 'card',
+                        'onclick': 'kaartomdraaien(this.id,"' + periode + '")',
+                    }).appendTo('#' + i);
+                    $('<div/>', {
+                        'class': 'front',
+                    }).appendTo('#' + i + 'b');
+                    $('<div/>', {
+                        'id': i + 'c',
+                        'class': 'back',
+                    }).appendTo('#' + i + 'b');
+                    $('#' + i + 'c').prepend('<img width="200"src="pics/' + periode + '" />');
+                }
+
+
+            });
+/*-----Nieuw spel --------------------------------------*/
+            $("#nieuw").click(function() {
+                location.reload();
+            });
+        });
+    </script>
+
+</body>
+
+</html>
