@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <!-- Standards -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta name="description" content="Memoryspel geschiedenis">
+    <meta name="keywords" content="Memoryspel, geschiedenis, prehistorie, stroomcultuur, oudheid">
+    <meta name="author" content="Marit Jaspers">
+    <title>Memoryspel Marit Jaspers</title>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/sweetalert.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+    <!-- Start + Uitleg + Nieuws spel
+    ------------------------------- -->
+    <header>
+        <h1> Memoryspel geschiedenis </h1>
+        <ul class="info">
+            <li>
+                <a id="Start" class="fNiv">
+                <h2> Start </h2></a>
+            </li>
+            <li>
+                <a id="Uitleg" class="fNiv">
+                <h2> Uitleg </h2></a>
+            </li>
+            <li>
+                <a id="nieuw" class="fNiv">
+                <h2> Nieuw spel </h2></a>
+            </li>
+        </ul>
+
+        <!-- Lijst met spelers en scores 
+        ------------------------------- -->
+        <div class="spelers">
+            <div class="punten1" id="sp1">Speler 1</div>
+            <div class="punten1" id="score1">0</div>
+            <div class="punten2" id="sp2">Speler 2</div>
+            <div class="punten2" id="score2">0</div>
+        </div>
+
+        <!-- Periodes 
+        ------------------------------- -->
+        <a href="#!" class="period" id="period">Periodes</a>
+        <ul id="jmenu" class="perio">
+            <li><a id="Pre" class="fNiv"> Prehistorie </a></li>
+            <li><a id="Sto" class="fNiv"> Stroomcultuur </a></li>
+            <li><a id="Kla" class="fNiv"> Klassieke Oudheid </a></li>
+            <li><a id="Mid" class="fNiv"> Middeleeuwen </a></li>
+            <li><a id="Nwt" class="fNiv"> Nieuwe tijd </a></li>
+            <li><a id="Nst" class="fNiv"> Nieuwste tijd </a></li>
+            <li><a id="Eig" class="fNiv"> Eigen tijd </a></li>
+        </ul>
+    </header>
+    
+    <div id="k"></div>
+    
+    <!-- Scripts -->
+    <script src="scripts/jquery-1.12.1.min.js"></script>
+    <script src="scripts/sweetalert.min.js"></script>
+    <script src="scripts/memory.js"></script>
+</body>
+</html>

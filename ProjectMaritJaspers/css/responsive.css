@@ -1,0 +1,42 @@
+@media screen and (max-width: 915px) {
+    .perio {}
+    .perio li {
+        display: block !important;
+        width: 100%;
+    }
+}
+@media screen and (max-width: 716px) {
+    .perio {
+        display: none;
+    }
+    
+    .period {
+        margin-top: 10px;
+        display: block;
+        text-align: center;
+        color: beige;
+        text-decoration: none;
+        text-transform: uppercase;
+        width: 100%;
+    }
+    
+    .info {
+        font-size: 0.8em;
+        margin-top: 20px;
+    }
+    .container {
+        width: 150px;
+        height: 150px;
+        -webkit-perspective: 600px;
+        -moz-perspective: 600px;
+        -o-perspective: 600px;
+        perspective: 600px;
+    }
+    .card div {
+        line-height: 0px;
+    }
+    #k img {
+        width: 150px;
+        height: 150px
+    }
+}

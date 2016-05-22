@@ -1,0 +1,128 @@
+* {
+    margin: 0;
+}
+header {
+    background: #8E550F;
+    padding: 5px 15px;
+}
+.period {
+    display: none;
+}
+#score1 {
+    margin-bottom: 7px;
+}
+#score2 {
+    margin-bottom: 7px;
+}
+.perio {
+    font-size: 1.1em;
+}
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #8E550F;
+}
+li {
+    float: left;
+}
+li a {
+    display: block;
+    color: beige;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+li a:hover {
+    background-color: #111;
+}
+.spelers {
+    background-color: #8E550F;
+    color: white;
+    width: 150px;
+}
+.spelers div {}
+.info {
+    display: inline-block;
+    float: right;
+    margin-top: 25px;
+}
+.container {
+    float: left;
+    width: 200px;
+    height: 200px;
+    position: relative;
+    border: 1px solid #ccc;
+    -webkit-perspective: 800px;
+    -moz-perspective: 800px;
+    -o-perspective: 800px;
+    perspective: 800px;
+}
+.card {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    -webkit-transition: -webkit-transform 1s;
+    -moz-transition: -moz-transform 1s;
+    -o-transition: -o-transform 1s;
+    transition: transform 1s;
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    -o-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-transform-origin: 50% 50%;
+}
+.card div {
+    display: block;
+    height: 100%;
+    width: 100%;
+    line-height: 260px;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    font-size: 140px;
+    position: absolute;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -o-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+.card .front {
+    background-image: url(../pics/achtergrond.jpg);
+    background-size: cover;
+    /* <------ */
+    background-repeat: no-repeat;
+}
+.card .back {
+    background: white;
+    -webkit-transform: rotateY( 180deg);
+    -moz-transform: rotateY( 180deg);
+    -o-transform: rotateY( 180deg);
+    transform: rotateY( 180deg);
+}
+.card.flipped {
+    -webkit-transform: rotateY( 180deg);
+    -moz-transform: rotateY( 180deg);
+    -o-transform: rotateY( 180deg);
+    transform: rotateY( 180deg);
+}
+.fieldlabel {
+    color: beige;
+    background: #8E550F;
+}
+h1 {
+    color: beige;
+    background: #8E550F;
+    display: inline-block;
+    margin: 0 auto;
+    padding: 0;
+    position: relative;
+    text-decoration: underline;
+    margin-bottom: 10px;
+}
+#k img {
+    width: 200px;
+    height: 200px
+}
+        
